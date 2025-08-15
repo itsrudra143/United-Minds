@@ -8,7 +8,6 @@ const tagRoutes = require("./modules/tag/tag.routes");
 const authRoutes = require("./modules/auth/auth.routes");
 const threadRoutes = require("./modules/thread/thread.routes");
 
-
 const app = express();
 app.use(cors);
 app.use(express.json());

@@ -14,7 +14,7 @@ exports.createThread = async (req, res) => {
         categoryId: category_id,
         authorId,
         threadTags: {
-          create: tags?.map((tagId) => ({ tagId })) || [],
+          create: (Array.isArray(tags) ? tags : []).map((tagId) => ({ tagId })),
         },
       },
       include: { threadTags: true },
