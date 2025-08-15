@@ -20,7 +20,7 @@ app.get("/health", async (req, res) => {
   }
 });
 
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", authRoutes); //
 
 app.listen(process.env.PORT, () =>
   console.log(`Server running on ${process.env.PORT}`)
