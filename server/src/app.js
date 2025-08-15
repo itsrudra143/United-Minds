@@ -6,6 +6,8 @@ const passport = require("passport");
 const categoryRoutes = require("./modules/category/category.routes");
 const tagRoutes = require("./modules/tag/tag.routes");
 const authRoutes = require("./modules/auth/auth.routes");
+const threadRoutes = require("./modules/thread/thread.routes");
+
 
 const app = express();
 app.use(cors);
@@ -29,3 +31,4 @@ app.listen(process.env.PORT, () =>
 
 app.use("/api/categories", categoryRoutes);
 app.use("/api/tags", tagRoutes);
+app.use("/api/threads", threadRoutes);
