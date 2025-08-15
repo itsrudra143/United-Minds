@@ -3,7 +3,8 @@ const express = require("express");
 const prisma = require("./db/client");
 const cors = require("./config/cors");
 const passport = require("passport");
-
+const categoryRoutes = require("./modules/category/category.routes");
+const tagRoutes = require("./modules/tag/tag.routes");
 const authRoutes = require("./modules/auth/auth.routes");
 
 const app = express();
@@ -25,3 +26,6 @@ app.use("/api/auth", authRoutes); //
 app.listen(process.env.PORT, () =>
   console.log(`Server running on ${process.env.PORT}`)
 );
+
+app.use("/api/categories", categoryRoutes);
+app.use("/api/tags", tagRoutes);
