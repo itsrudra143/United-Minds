@@ -30,18 +30,6 @@ model Tag {
   updatedAt DateTime @updatedAt
 }
 
-model ThreadTag {
-  id       Int   @id @default(autoincrement())
-  threadId Int
-  tagId    Int
-
-  thread   Thread @relation(fields: [threadId], references: [id])
-  tag      Tag    @relation(fields: [tagId], references: [id])
-
-  @@unique([threadId, tagId])
-}
-
-
 model Thread {
   id          Int       @id @default(autoincrement())
   title       String
@@ -59,3 +47,14 @@ model Thread {
   @@index([authorId])
 }
 
+
+model ThreadTag {
+  id       Int   @id @default(autoincrement())
+  threadId Int
+  tagId    Int
+
+  thread   Thread @relation(fields: [threadId], references: [id])
+  tag      Tag    @relation(fields: [tagId], references: [id])
+
+  @@unique([threadId, tagId])
+}
