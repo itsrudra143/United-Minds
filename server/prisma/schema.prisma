@@ -16,7 +16,8 @@ model User {
   createdAt    DateTime  @default(now())
 
   // Relations
-  threads      Thread[]  // A user can have many threads
+  threads      Thread[]
+  replies      Reply[]  
 }
 
 model Category {
@@ -63,5 +64,5 @@ model ThreadTag {
   thread    Thread  @relation(fields: [threadId], references: [id])
   tag       Tag     @relation(fields: [tagId], references: [id])
 
-  @@unique([threadId, tagId])
+  @@unique([threadId, tagId])
 }
