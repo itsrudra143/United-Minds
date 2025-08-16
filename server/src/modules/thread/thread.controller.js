@@ -3,18 +3,18 @@ const prisma = new PrismaClient();
 
 // Create Thread with tags
 exports.createThread = async (req, res) => {
-  const { title, content, category_id, tags } = req.body;
-  const authorId = req.user?.id || 1; // replace 1 with auth user ID if using auth
+  const { title, content, categoryId, tagIds } = req.body;
+  const authorId = req.user?.id || 1;
 
   try {
     const thread = await prisma.thread.create({
       data: {
         title,
         content,
-        categoryId: category_id,
+        categoryId, // directly use this
         authorId,
         threadTags: {
-          create: tags?.map((tagId) => ({ tagId })) || [],
+          create: tagIds?.map((tagId) => ({ tagId })) || [],
         },
       },
       include: { threadTags: true },
@@ -26,7 +26,6 @@ exports.createThread = async (req, res) => {
   }
 };
 
-// Get all threads (paginated, latest first)
 exports.getThreads = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -69,7 +68,6 @@ exports.getThreads = async (req, res) => {
   }
 };
 
-// Get single thread by ID
 exports.getThreadById = async (req, res) => {
   const { id } = req.params;
   try {
@@ -103,7 +101,6 @@ exports.voteThread = async (req, res) => {
       create: { userId, threadId, value },
     });
 
-    // compute updated score
     const result = await prisma.threadVote.aggregate({
       where: { threadId },
       _sum: { value: true },

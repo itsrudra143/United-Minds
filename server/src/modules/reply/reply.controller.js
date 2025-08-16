@@ -148,7 +148,7 @@ exports.getReplyById = async (req, res) => {
   }
 };
 
-const prisma = require("../../db/client");
+// const prisma = require("../../db/client");
 
 exports.voteReply = async (req, res) => {
   try {
