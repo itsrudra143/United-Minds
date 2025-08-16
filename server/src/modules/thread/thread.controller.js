@@ -11,7 +11,7 @@ exports.createThread = async (req, res) => {
       data: {
         title,
         content,
-        categoryId, // directly use this
+        categoryId,
         authorId,
         threadTags: {
           create: tagIds?.map((tagId) => ({ tagId })) || [],
@@ -33,7 +33,6 @@ exports.getThreads = async (req, res) => {
   const tagName = req.query.tag;
 
   const where = {};
-
   if (categoryId) where.categoryId = parseInt(categoryId);
 
   try {
@@ -47,7 +46,11 @@ exports.getThreads = async (req, res) => {
             },
           },
         },
-        include: { threadTags: { include: { tag: true } }, category: true },
+        include: {
+          threadTags: { include: { tag: true } },
+          category: true,
+          votes: true, // 🔥 include votes
+        },
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,
@@ -55,14 +58,24 @@ exports.getThreads = async (req, res) => {
     } else {
       threads = await prisma.thread.findMany({
         where,
-        include: { threadTags: { include: { tag: true } }, category: true },
+        include: {
+          threadTags: { include: { tag: true } },
+          category: true,
+          votes: true, // 🔥 include votes
+        },
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
         take: limit,
       });
     }
 
-    res.json(threads);
+    // attach score
+    const withScore = threads.map((t) => ({
+      ...t,
+      score: t.votes.reduce((sum, v) => sum + v.value, 0),
+    }));
+
+    res.json(withScore);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -73,40 +86,21 @@ exports.getThreadById = async (req, res) => {
   try {
     const thread = await prisma.thread.findUnique({
       where: { id: parseInt(id) },
-      include: { threadTags: { include: { tag: true } }, category: true },
+      include: {
+        threadTags: { include: { tag: true } },
+        category: true,
+        votes: true, // 🔥 include votes
+      },
     });
 
     if (!thread) return res.status(404).json({ error: "Thread not found" });
-    res.json(thread);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
 
-// const prisma = require("../../db/client");
+    const withScore = {
+      ...thread,
+      score: thread.votes.reduce((sum, v) => sum + v.value, 0),
+    };
 
-exports.voteThread = async (req, res) => {
-  try {
-    const threadId = parseInt(req.params.id);
-    const userId = req.user.id;
-    const { value } = req.body; // expect 1 or -1
-
-    if (![1, -1].includes(value)) {
-      return res.status(400).json({ error: "Invalid vote value" });
-    }
-
-    const vote = await prisma.threadVote.upsert({
-      where: { userId_threadId: { userId, threadId } },
-      update: { value },
-      create: { userId, threadId, value },
-    });
-
-    const result = await prisma.threadVote.aggregate({
-      where: { threadId },
-      _sum: { value: true },
-    });
-
-    res.json({ vote, score: result._sum.value || 0 });
+    res.json(withScore);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

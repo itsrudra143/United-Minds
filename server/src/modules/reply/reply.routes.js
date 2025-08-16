@@ -14,7 +14,4 @@ router.get("/thread/:threadId", ctrl.getThreadReplies);
 // Get a reply by id
 router.get("/:id", ctrl.getReplyById);
 
-// POST /api/replies/:id/votes
-router.post("/:id/votes", requireAuth, ctrl.voteReply);
-
 module.exports = router;

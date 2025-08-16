@@ -8,6 +8,7 @@ const tagRoutes = require("./modules/tag/tag.routes");
 const authRoutes = require("./modules/auth/auth.routes");
 const threadRoutes = require("./modules/thread/thread.routes");
 const replyRoutes = require("./modules/reply/reply.routes");
+const voteRoutes = require("./modules/vote/vote.routes");
 
 const app = express();
 app.use(cors);
@@ -33,3 +34,4 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/tags", tagRoutes);
 app.use("/api/threads", threadRoutes);
 app.use("/api/replies", replyRoutes);
+app.use("/api/vote", voteRoutes);

@@ -14,7 +14,6 @@ router.get("/", threadController.getThreads);
 // GET /api/threads/:id
 router.get("/:id", threadController.getThreadById);
 
-// POST /api/threads/:id/votes
-router.post("/:id/votes", requireAuth, threadController.voteThread);
+
 
 module.exports = router;
