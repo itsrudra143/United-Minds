@@ -124,12 +124,13 @@ exports.getThreadReplies = async (req, res) => {
 exports.getReplyById = async (req, res) => {
   try {
     const id = Number(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ error: "Invalid reply ID" });
+    }
+
     const reply = await prisma.reply.findUnique({
       where: { id },
       include: {
-        category: true,
-        threadTags: { include: { tag: true } },
-        _count: { select: { replies: true } },
         author: { select: { id: true, name: true, avatarUrl: true } },
         thread: { select: { id: true, title: true } },
         parent: { select: { id: true } },
@@ -139,9 +140,12 @@ exports.getReplyById = async (req, res) => {
             author: { select: { id: true, name: true, avatarUrl: true } },
           },
         },
+        _count: { select: { children: true } }, // ✅ count of child replies
       },
     });
+
     if (!reply) return res.status(404).json({ error: "Reply not found" });
+
     res.json(reply);
   } catch (err) {
     res.status(500).json({ error: err.message });
