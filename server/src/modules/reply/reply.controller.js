@@ -1,8 +1,5 @@
 const prisma = require("../../db/client");
 
-/**
- * POST /api/replies
- */
 exports.createReply = async (req, res) => {
   try {
     const { thread_id, content, parent_id } = req.body;
@@ -52,9 +49,6 @@ exports.createReply = async (req, res) => {
   }
 };
 
-/**
- * GET /api/replies/thread/:threadId
- */
 exports.getThreadReplies = async (req, res) => {
   try {
     const threadId = Number(req.params.threadId);
@@ -89,7 +83,7 @@ exports.getThreadReplies = async (req, res) => {
             },
             take: 5,
           },
-          votes: true, // 🔥 include votes
+          votes: true,
         },
       }),
     ]);
@@ -107,9 +101,6 @@ exports.getThreadReplies = async (req, res) => {
   }
 };
 
-/**
- * GET /api/replies/:id
- */
 exports.getReplyById = async (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -131,7 +122,6 @@ exports.getReplyById = async (req, res) => {
 
     if (!reply) return res.status(404).json({ error: "Reply not found" });
 
-    // ✅ Correct: calculate score for this single reply
     const withScore = {
       ...reply,
       score: reply.votes.reduce((sum, v) => sum + v.value, 0),

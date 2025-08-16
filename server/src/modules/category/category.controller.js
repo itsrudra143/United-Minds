@@ -14,7 +14,7 @@ exports.createCategory = async (req, res) => {
   }
 };
 
-// Get All Categories
+// Get Categories
 exports.getCategories = async (req, res) => {
   try {
     const categories = await prisma.category.findMany();

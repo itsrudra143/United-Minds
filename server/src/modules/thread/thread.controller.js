@@ -1,7 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-// Create Thread with tags
 exports.createThread = async (req, res) => {
   const { title, content, categoryId, tagIds } = req.body;
   const authorId = req.user?.id || 1;
@@ -49,7 +48,7 @@ exports.getThreads = async (req, res) => {
         include: {
           threadTags: { include: { tag: true } },
           category: true,
-          votes: true, // 🔥 include votes
+          votes: true,
         },
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
@@ -61,7 +60,7 @@ exports.getThreads = async (req, res) => {
         include: {
           threadTags: { include: { tag: true } },
           category: true,
-          votes: true, // 🔥 include votes
+          votes: true, 
         },
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
@@ -69,7 +68,6 @@ exports.getThreads = async (req, res) => {
       });
     }
 
-    // attach score
     const withScore = threads.map((t) => ({
       ...t,
       score: t.votes.reduce((sum, v) => sum + v.value, 0),
@@ -89,7 +87,7 @@ exports.getThreadById = async (req, res) => {
       include: {
         threadTags: { include: { tag: true } },
         category: true,
-        votes: true, // 🔥 include votes
+        votes: true, 
       },
     });
 

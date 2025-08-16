@@ -1,11 +1,10 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-// 🟢 Vote on a Thread
 exports.voteThread = async (req, res) => {
-  const { id } = req.params; // thread id
-  const { value } = req.body; // 1 or -1
-  const userId = req.user?.id; // comes from JWT
+  const { id } = req.params;
+  const { value } = req.body;
+  const userId = req.user?.id;
 
   if (![1, -1].includes(value)) {
     return res
@@ -25,7 +24,6 @@ exports.voteThread = async (req, res) => {
       create: { userId, threadId: parseInt(id), value },
     });
 
-    // recompute score
     const votes = await prisma.threadVote.findMany({
       where: { threadId: parseInt(id) },
     });
@@ -38,11 +36,10 @@ exports.voteThread = async (req, res) => {
   }
 };
 
-// 🟢 Vote on a Reply
 exports.voteReply = async (req, res) => {
-  const { id } = req.params; // reply id
+  const { id } = req.params;
   const { value } = req.body;
-  const userId = req.user?.id; // comes from JWT
+  const userId = req.user?.id;
 
   if (![1, -1].includes(value)) {
     return res
@@ -62,7 +59,6 @@ exports.voteReply = async (req, res) => {
       create: { userId, replyId: parseInt(id), value },
     });
 
-    // recompute score
     const votes = await prisma.replyVote.findMany({
       where: { replyId: parseInt(id) },
     });
