@@ -9,19 +9,28 @@ exports.createReply = async (req, res) => {
   try {
     const { thread_id, content, parent_id } = req.body;
     if (!thread_id || !content) {
-      return res.status(400).json({ error: "thread_id and content are required" });
+      return res
+        .status(400)
+        .json({ error: "thread_id and content are required" });
     }
 
     // ensure thread exists
-    const thread = await prisma.thread.findUnique({ where: { id: Number(thread_id) } });
+    const thread = await prisma.thread.findUnique({
+      where: { id: Number(thread_id) },
+    });
     if (!thread) return res.status(404).json({ error: "Thread not found" });
 
     // if parent_id provided, ensure it exists and belongs to the same thread
     if (parent_id) {
-      const parent = await prisma.reply.findUnique({ where: { id: Number(parent_id) } });
-      if (!parent) return res.status(400).json({ error: "parent_id is invalid" });
+      const parent = await prisma.reply.findUnique({
+        where: { id: Number(parent_id) },
+      });
+      if (!parent)
+        return res.status(400).json({ error: "parent_id is invalid" });
       if (parent.threadId !== Number(thread_id)) {
-        return res.status(400).json({ error: "Parent reply belongs to a different thread" });
+        return res
+          .status(400)
+          .json({ error: "Parent reply belongs to a different thread" });
       }
     }
 
@@ -60,7 +69,12 @@ exports.getThreadReplies = async (req, res) => {
     const page = Number(req.query.page || 1);
     const limit = Number(req.query.limit || 10);
     const parentIdRaw = req.query.parent_id;
-    const parentId = parentIdRaw === undefined ? null : (parentIdRaw === "null" ? null : Number(parentIdRaw));
+    const parentId =
+      parentIdRaw === undefined
+        ? null
+        : parentIdRaw === "null"
+        ? null
+        : Number(parentIdRaw);
 
     // ensure thread exists
     const thread = await prisma.thread.findUnique({ where: { id: threadId } });
@@ -83,7 +97,9 @@ exports.getThreadReplies = async (req, res) => {
           // Include one level of children (if you want nested preview)
           children: {
             orderBy: { createdAt: "asc" },
-            include: { author: { select: { id: true, name: true, avatarUrl: true } } },
+            include: {
+              author: { select: { id: true, name: true, avatarUrl: true } },
+            },
             take: 5, // small preview; adjust if needed
           },
         },
@@ -119,7 +135,9 @@ exports.getReplyById = async (req, res) => {
         parent: { select: { id: true } },
         children: {
           orderBy: { createdAt: "asc" },
-          include: { author: { select: { id: true, name: true, avatarUrl: true } } },
+          include: {
+            author: { select: { id: true, name: true, avatarUrl: true } },
+          },
         },
       },
     });
@@ -129,7 +147,6 @@ exports.getReplyById = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-
 
 const prisma = require("../../db/client");
 
