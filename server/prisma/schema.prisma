@@ -89,3 +89,33 @@ model Reply {
   @@index([authorId])
   @@index([parentId])
 }
+
+model ThreadVote {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  threadId  Int
+  value     Int      // 1 or -1
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id])
+  thread    Thread   @relation(fields: [threadId], references: [id])
+
+  @@unique([userId, threadId]) // prevent double-voting
+  @@index([threadId])
+}
+
+model ReplyVote {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  replyId   Int
+  value     Int      // 1 or -1
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user      User     @relation(fields: [userId], references: [id])
+  reply     Reply    @relation(fields: [replyId], references: [id])
+
+  @@unique([userId, replyId]) // prevent double-voting
+  @@index([replyId])
+}
