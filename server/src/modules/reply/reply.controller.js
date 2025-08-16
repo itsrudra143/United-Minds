@@ -129,3 +129,33 @@ exports.getReplyById = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+
+const prisma = require("../../db/client");
+
+exports.voteReply = async (req, res) => {
+  try {
+    const replyId = parseInt(req.params.id);
+    const userId = req.user.id;
+    const { value } = req.body;
+
+    if (![1, -1].includes(value)) {
+      return res.status(400).json({ error: "Invalid vote value" });
+    }
+
+    const vote = await prisma.replyVote.upsert({
+      where: { userId_replyId: { userId, replyId } },
+      update: { value },
+      create: { userId, replyId, value },
+    });
+
+    const result = await prisma.replyVote.aggregate({
+      where: { replyId },
+      _sum: { value: true },
+    });
+
+    res.json({ vote, score: result._sum.value || 0 });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
