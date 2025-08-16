@@ -85,7 +85,7 @@ exports.getThreadById = async (req, res) => {
   }
 };
 
-const prisma = require("../../db/client");
+// const prisma = require("../../db/client");
 
 exports.voteThread = async (req, res) => {
   try {
