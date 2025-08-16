@@ -8,67 +8,70 @@ datasource db {
 }
 
 model User {
-  id           Int       @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   name         String
-  email        String    @unique
+  email        String   @unique
   passwordHash String
-  avatarUrl    String?   @db.Text
-  createdAt    DateTime  @default(now())
+  avatarUrl    String?  @db.Text
+  createdAt    DateTime @default(now())
 
   // Relations
-  threads      Thread[]
-  replies      Reply[]  
+  threads     Thread[]
+  replies     Reply[]
+  threadVotes ThreadVote[]
+  replyVotes  ReplyVote[]
 }
 
 model Category {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
-  threads   Thread[]  // A category can have many threads
+  threads Thread[] // A category can have many threads
 }
 
 model Tag {
-  id         Int         @id @default(autoincrement())
-  name       String      @unique
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relations
   threadTags ThreadTag[] // A tag can be linked to many threads via ThreadTag
 }
 
 model Thread {
-  id          Int         @id @default(autoincrement())
-  title       String
-  content     String
-  categoryId  Int
-  authorId    Int
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+  id         Int      @id @default(autoincrement())
+  title      String
+  content    String
+  categoryId Int
+  authorId   Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 
-  category    Category    @relation(fields: [categoryId], references: [id])
-  author      User        @relation(fields: [authorId], references: [id])
-  threadTags  ThreadTag[]
-  replies     Reply[]     // NEW: thread has many replies
+  // Relations
+  category   Category     @relation(fields: [categoryId], references: [id])
+  author     User         @relation(fields: [authorId], references: [id])
+  threadTags ThreadTag[]
+  replies    Reply[]
+  votes      ThreadVote[]
 
   @@index([categoryId])
   @@index([authorId])
 }
 
-
 model ThreadTag {
-  id        Int     @id @default(autoincrement())
-  threadId  Int
-  tagId     Int
+  id       Int @id @default(autoincrement())
+  threadId Int
+  tagId    Int
 
   // Relations
-  thread    Thread  @relation(fields: [threadId], references: [id])
-  tag       Tag     @relation(fields: [tagId], references: [id])
+  thread Thread @relation(fields: [threadId], references: [id])
+  tag    Tag    @relation(fields: [tagId], references: [id])
 
-  @@unique([threadId, tagId])
+  @@unique([threadId, tagId])
 }
 
 model Reply {
@@ -80,10 +83,12 @@ model Reply {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  thread    Thread   @relation(fields: [threadId], references: [id])
-  author    User     @relation(fields: [authorId], references: [id])
-  parent    Reply?   @relation("ReplyToReply", fields: [parentId], references: [id])
-  children  Reply[]  @relation("ReplyToReply")
+  // Relations
+  thread   Thread      @relation(fields: [threadId], references: [id])
+  author   User        @relation(fields: [authorId], references: [id])
+  parent   Reply?      @relation("ReplyToReply", fields: [parentId], references: [id])
+  children Reply[]     @relation("ReplyToReply")
+  votes    ReplyVote[]
 
   @@index([threadId])
   @@index([authorId])
@@ -94,12 +99,13 @@ model ThreadVote {
   id        Int      @id @default(autoincrement())
   userId    Int
   threadId  Int
-  value     Int      // 1 or -1
+  value     Int // 1 or -1
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user      User     @relation(fields: [userId], references: [id])
-  thread    Thread   @relation(fields: [threadId], references: [id])
+  // Relations
+  user   User   @relation(fields: [userId], references: [id])
+  thread Thread @relation(fields: [threadId], references: [id])
 
   @@unique([userId, threadId]) // prevent double-voting
   @@index([threadId])
@@ -109,12 +115,13 @@ model ReplyVote {
   id        Int      @id @default(autoincrement())
   userId    Int
   replyId   Int
-  value     Int      // 1 or -1
+  value     Int // 1 or -1
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user      User     @relation(fields: [userId], references: [id])
-  reply     Reply    @relation(fields: [replyId], references: [id])
+  // Relations
+  user  User  @relation(fields: [userId], references: [id])
+  reply Reply @relation(fields: [replyId], references: [id])
 
   @@unique([userId, replyId]) // prevent double-voting
   @@index([replyId])

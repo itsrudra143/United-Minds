@@ -5,14 +5,16 @@ const ctrl = require("./reply.controller");
 
 const requireAuth = passport.authenticate("jwt", { session: false });
 
-// Create a reply (auth required)
+// Create a reply
 router.post("/", requireAuth, ctrl.createReply);
 
-// List replies for a thread (top-level by default, or ?parent_id=123)
+// List replies for a thread
 router.get("/thread/:threadId", ctrl.getThreadReplies);
 
 // Get a reply by id
 router.get("/:id", ctrl.getReplyById);
 
-module.exports = router;
+// POST /api/replies/:id/votes
+router.post("/:id/votes", requireAuth, ctrl.voteReply);
 
+module.exports = router;
