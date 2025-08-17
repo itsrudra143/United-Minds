@@ -1,3 +1,4 @@
+
 # United Minds – Online Forum & Discussion Board
 
 **United Minds** is a full-stack community-driven platform inspired by Reddit and Stack Overflow.  
@@ -71,7 +72,8 @@ The database is structured to support users, threads, replies, votes, tags, and 
 - **ThreadTags** – Join table linking threads and tags  
 
 ### ER Diagram  
-*(Insert ER diagram image here)*  
+Below is the ER diagram for the project:  
+
 ![ER Diagram](./assets/diagram.png)
 
 ---
@@ -82,3 +84,66 @@ The database is structured to support users, threads, replies, votes, tags, and 
 ```bash
 git clone https://github.com/itsrudra143/United-Minds.git
 cd United-Minds
+````
+
+### 2. Install Dependencies
+
+```bash
+cd server
+npm install
+```
+
+### 3. Configure Environment
+
+Create a `.env` file inside the `server/` directory and add:
+
+```
+DATABASE_URL=your_neon_postgres_url
+JWT_SECRET=your_jwt_secret
+PORT=5000
+```
+
+### 4. Run Migrations
+
+```bash
+npx prisma migrate dev --name init
+```
+
+### 5. Start Server
+
+```bash
+npm run dev
+```
+
+Backend will be available at: `http://localhost:5000`
+
+---
+
+## 📬 API Testing
+
+Use **Postman** to test APIs:
+
+* **Auth**: Register, Login, User Info
+* **Threads**: Create, View, Filter
+* **Replies**: Add root/nested replies
+* **Voting**: Upvote/Downvote threads & replies
+
+---
+
+## 🌍 Deployment
+
+* **Backend (Express + Prisma + PostgreSQL)**: [Hosted on Render](https://render.com)
+* **Frontend (React)**: [Hosted on Netlify](https://netlify.com)
+* **Database (PostgreSQL)**: [Hosted on Neon DB](https://neon.tech)
+
+---
+
+## 🤝 Contribution
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a new branch (`feature/your-feature`)
+3. Commit your changes
+4. Push and create a Pull Request
+
