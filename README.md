@@ -40,7 +40,6 @@ The goal of the project is to provide a **secure, interactive, and structured en
 - Axios  
 - Context API / Redux  
 - Tailwind CSS  
-- **Hosted on Netlify**
 
 ### Backend
 - Node.js + Express.js  
@@ -48,7 +47,6 @@ The goal of the project is to provide a **secure, interactive, and structured en
 - PostgreSQL (**Neon DB**)  
 - Passport.js with JWT  
 - bcrypt.js for password hashing  
-- **Hosted on Render**
 
 ### Tools & Utilities
 - Postman (API Testing)  
