@@ -128,13 +128,6 @@ Use **Postman** to test APIs:
 
 ---
 
-## 🌍 Deployment
-
-* **Backend (Express + Prisma + PostgreSQL)**: [Hosted on Render](https://render.com)
-* **Frontend (React)**: [Hosted on Netlify](https://netlify.com)
-* **Database (PostgreSQL)**: [Hosted on Neon DB](https://neon.tech)
-
----
 
 ## 🤝 Contribution
 
