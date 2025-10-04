@@ -107,7 +107,7 @@ export default function Home() {
           </div>
 
           {/* Hero Image Section */}
-          <div className="relative max-w-5xl mx-auto">
+          <div className="relative w-full flex justify-center">
             {/* Decorative Background Elements */}
             <div className="absolute -top-10 -left-10 w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl"></div>
             <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-full blur-3xl"></div>
@@ -118,7 +118,7 @@ export default function Home() {
                 <img
                   src={heroImage}
                   alt="Diverse group of happy students connecting and networking"
-                  className="w-[1200px]"
+                  className="w-[1200px] h-auto object-cover"
                 />
               </div>
             </div>
