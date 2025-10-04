@@ -57,6 +57,58 @@ export default function Home() {
           </div>
         </nav>
       </header>
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
+        <div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse"
+          style={{ animationDelay: "1s" }}
+        ></div>
+
+        {/* Floating Emojis */}
+        <div
+          className="absolute top-[20%] left-[15%] text-5xl opacity-50  animate-bounce"
+          style={{ animationDuration: "3s", animationDelay: "0s" }}
+        >
+          📱
+        </div>
+        <div
+          className="absolute top-[32%] right-[10%] text-5xl opacity-50  animate-bounce"
+          style={{ animationDuration: "4s", animationDelay: "0.5s" }}
+        >
+          💻
+        </div>
+        <div
+          className="absolute top-[15%] right-[50%] text-5xl opacity-50  animate-bounce "
+          style={{ animationDuration: "4.5s", animationDelay: "1.5s" }}
+        >
+          ⌨️
+        </div>
+        <div
+          className="absolute top-[88%] left-[22%] text-5xl opacity-50  animate-bounce"
+          style={{ animationDuration: "3s", animationDelay: "2s" }}
+        >
+          📕
+        </div>
+
+        <div
+          className="absolute top-[68%] right-[15%] text-5xl opacity-75  animate-bounce"
+          style={{ animationDuration: "3.5s", animationDelay: "0.3s" }}
+        >
+          🧾
+        </div>
+        <div
+          className="absolute top-[15%] right-[25%] text-5xl opacity-50  animate-bounce"
+          style={{ animationDuration: "4.5s", animationDelay: "1.8s" }}
+        >
+          📈
+        </div>
+        <div
+          className="absolute top-[50%] left-[5%] text-6xl opacity-50  animate-bounce"
+          style={{ animationDuration: "3s", animationDelay: "2.2s" }}
+        >
+          📊
+        </div>
+      </div>
 
       {/* Hero Section */}
       <main className="relative pt-24">
@@ -64,7 +116,7 @@ export default function Home() {
           {/* Centered Content */}
           <div className="text-center max-w-4xl mx-auto mb-20">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border-2 border-blue-300/50 rounded-full px-5 py-2.5 mb-8 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border-2 border-blue-300/50 rounded-full px-5 py-2.5 mb-8 backdrop- shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
               <Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
               <span className="text-sm font-bold bg-gradient-to-r from-blue-700 to-purple-700 bg-clip-text text-transparent">
                 Join 10,000+ Students Already Connected
@@ -155,7 +207,7 @@ export default function Home() {
               ].map((stat, idx) => (
                 <div
                   key={idx}
-                  className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group cursor-pointer"
+                  className="bg-white/60 backdrop- rounded-2xl p-6 border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group cursor-pointer"
                 >
                   <div
                     className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform shadow-lg`}
