@@ -60,7 +60,7 @@ exports.getThreads = async (req, res) => {
         include: {
           threadTags: { include: { tag: true } },
           category: true,
-          votes: true, 
+          votes: true,
         },
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
@@ -87,7 +87,7 @@ exports.getThreadById = async (req, res) => {
       include: {
         threadTags: { include: { tag: true } },
         category: true,
-        votes: true, 
+        votes: true,
       },
     });
 
