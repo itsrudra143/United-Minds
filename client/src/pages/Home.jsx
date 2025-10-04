@@ -2,6 +2,7 @@ import React from "react";
 import { MessageCircle, Users, TrendingUp, Sparkles } from "lucide-react";
 // Import the image at the top
 import heroImage from "../assets/image.png";
+import "../index.css";
 
 export default function Home() {
   return (
@@ -117,7 +118,7 @@ export default function Home() {
                 <img
                   src={heroImage}
                   alt="Diverse group of happy students connecting and networking"
-                  className="w-[1200px] h-auto object-cover"
+                  className="w-[1200px]"
                 />
               </div>
             </div>
