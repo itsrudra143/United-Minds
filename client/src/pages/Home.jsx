@@ -1,129 +1,84 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   MessageCircle,
   Users,
   TrendingUp,
   Sparkles,
   ArrowRight,
-  CheckCircle,
   Zap,
 } from "lucide-react";
-import heroImage from "../assets/image.png"; // Ensure you have an appropriate image in the assets folder
+import heroImage from "../assets/image.png";
+
 export default function Home() {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
-      {/* Animated Background Elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        ></div>
-      </div>
+      {/* Hero Section with Floating Elements */}
+      <main className="relative pt-24 overflow-hidden">
+        {/* Animated Background Elements - Only in Hero */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
+          <div
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse"
+            style={{ animationDelay: "1s" }}
+          ></div>
 
-      {/* Header */}
-      <header
-        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-          scrollY > 20
-            ? "bg-white/80 backdrop-blur-xl shadow-lg"
-            : "bg-transparent"
-        }`}
-      >
-        <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3 group cursor-pointer">
-            <div className="w-11 h-11 bg-gradient-to-br from-blue-600 via-blue-700 to-purple-600 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-              <MessageCircle className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-              United Minds
-            </span>
+          {/* Floating Emojis - Only in Hero */}
+          <div
+            className="absolute top-[20%] left-[15%] text-5xl opacity-50 animate-bounce"
+            style={{ animationDuration: "3s", animationDelay: "0s" }}
+          >
+            📱
           </div>
-          <div className="flex items-center gap-4">
-            <button className="text-gray-600 hover:text-gray-900 font-semibold transition-colors px-4 py-2 rounded-lg hover:bg-gray-100">
-              Sign In
-            </button>
-            <button className="bg-gradient-to-r from-gray-900 to-gray-800 text-white px-6 py-2.5 rounded-xl font-semibold hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center gap-2 group">
-              Get Started
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+          <div
+            className="absolute top-[32%] right-[10%] text-5xl opacity-50 animate-bounce"
+            style={{ animationDuration: "4s", animationDelay: "0.5s" }}
+          >
+            💻
           </div>
-        </nav>
-      </header>
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
-        <div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse"
-          style={{ animationDelay: "1s" }}
-        ></div>
-
-        {/* Floating Emojis */}
-        <div
-          className="absolute top-[20%] left-[15%] text-5xl opacity-50  animate-bounce"
-          style={{ animationDuration: "3s", animationDelay: "0s" }}
-        >
-          📱
-        </div>
-        <div
-          className="absolute top-[32%] right-[10%] text-5xl opacity-50  animate-bounce"
-          style={{ animationDuration: "4s", animationDelay: "0.5s" }}
-        >
-          💻
-        </div>
-        <div
-          className="absolute top-[15%] right-[50%] text-5xl opacity-50  animate-bounce "
-          style={{ animationDuration: "4.5s", animationDelay: "1.5s" }}
-        >
-          ⌨️
-        </div>
-        <div
-          className="absolute top-[88%] left-[22%] text-5xl opacity-50  animate-bounce"
-          style={{ animationDuration: "3s", animationDelay: "2s" }}
-        >
-          📕
+          <div
+            className="absolute top-[15%] right-[50%] text-5xl opacity-50 animate-bounce"
+            style={{ animationDuration: "4.5s", animationDelay: "1.5s" }}
+          >
+            ⌨️
+          </div>
+          <div
+            className="absolute top-[45%] left-[8%] text-5xl opacity-50 animate-bounce"
+            style={{ animationDuration: "3s", animationDelay: "2s" }}
+          >
+            📕
+          </div>
+          <div
+            className="absolute top-[38%] right-[15%] text-5xl opacity-75 animate-bounce"
+            style={{ animationDuration: "3.5s", animationDelay: "0.3s" }}
+          >
+            🧾
+          </div>
+          <div
+            className="absolute top-[15%] right-[25%] text-5xl opacity-50 animate-bounce"
+            style={{ animationDuration: "4.5s", animationDelay: "1.8s" }}
+          >
+            📈
+          </div>
+          <div
+            className="absolute top-[28%] left-[5%] text-6xl opacity-50 animate-bounce"
+            style={{ animationDuration: "3s", animationDelay: "2.2s" }}
+          >
+            📊
+          </div>
         </div>
 
-        <div
-          className="absolute top-[68%] right-[15%] text-5xl opacity-75  animate-bounce"
-          style={{ animationDuration: "3.5s", animationDelay: "0.3s" }}
-        >
-          🧾
-        </div>
-        <div
-          className="absolute top-[15%] right-[25%] text-5xl opacity-50  animate-bounce"
-          style={{ animationDuration: "4.5s", animationDelay: "1.8s" }}
-        >
-          📈
-        </div>
-        <div
-          className="absolute top-[50%] left-[5%] text-6xl opacity-50  animate-bounce"
-          style={{ animationDuration: "3s", animationDelay: "2.2s" }}
-        >
-          📊
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <main className="relative pt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           {/* Centered Content */}
-          <div className="text-center max-w-4xl mx-auto mb-20">
+          <div className="text-center max-w-4xl mx-auto mb-20 relative z-10">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border-2 border-blue-300/50 rounded-full px-5 py-2.5 mb-8 backdrop- shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 border-2 border-blue-300/50 rounded-full px-5 py-2.5 mb-8 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer">
               <Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
               <span className="text-sm font-bold bg-gradient-to-r from-blue-700 to-purple-700 bg-clip-text text-transparent">
                 Join 10,000+ Students Already Connected
               </span>
             </div>
 
-            {/* Main Heading with Stagger Animation */}
+            {/* Main Heading */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 mb-8 leading-tight tracking-tight">
               Find Your Tribe, <br className="hidden sm:block" />
               <span className="relative inline-block">
@@ -183,7 +138,7 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Enhanced Stats */}
+            {/* Stats */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
               {[
                 {
@@ -207,7 +162,7 @@ export default function Home() {
               ].map((stat, idx) => (
                 <div
                   key={idx}
-                  className="bg-white/60 backdrop- rounded-2xl p-6 border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group cursor-pointer"
+                  className="bg-white/60 rounded-2xl p-6 border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group cursor-pointer"
                 >
                   <div
                     className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform shadow-lg`}
@@ -224,37 +179,35 @@ export default function Home() {
               ))}
             </div>
           </div>
+        </div>
+      </main>
 
-          {/* Hero Image Section */}
-          <div className="relative w-full flex justify-center mb-20">
-            {/* Enhanced Decorative Background */}
+      {/* Hero Image Section - No Floating Elements */}
+      <div className="relative bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+          <div className="relative w-full flex justify-center">
+            {/* Decorative Background - Subtle */}
             <div className="absolute -top-20 -left-20 w-40 h-40 bg-gradient-to-br from-blue-500/30 to-cyan-500/30 rounded-full blur-3xl animate-pulse"></div>
             <div
               className="absolute -bottom-20 -right-20 w-48 h-48 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-full blur-3xl animate-pulse"
               style={{ animationDelay: "1s" }}
             ></div>
-            <div
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-yellow-500/20 to-orange-500/20 rounded-full blur-3xl animate-pulse"
-              style={{ animationDelay: "2s" }}
-            ></div>
 
             {/* Main Image Container */}
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl  border-2 border-white/50 bg-gradient-to-br from-white via-gray-50 to-blue-50 p-3">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-white/50 bg-gradient-to-br from-white via-gray-50 to-blue-50 p-3">
               <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
                 <div className="w-full h-full bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100 flex items-center justify-center">
-                  <div className="text-center">
-                    <img
-                      src={heroImage}
-                      alt="Community Interaction"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+                  <img
+                    src={heroImage}
+                    alt="Community Interaction"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
