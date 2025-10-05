@@ -24,7 +24,7 @@ export default function Home() {
 
           {/* Floating Emojis - Only in Hero */}
           <div
-            className="absolute top-[20%] left-[15%] text-5xl opacity-50 animate-bounce"
+            className="absolute top-[20%] left-[19%] text-5xl opacity-50 animate-bounce"
             style={{ animationDuration: "3s", animationDelay: "0s" }}
           >
             📱
@@ -36,19 +36,19 @@ export default function Home() {
             💻
           </div>
           <div
-            className="absolute top-[15%] right-[50%] text-5xl opacity-50 animate-bounce"
+            className="absolute top-[7%] right-[50%] text-5xl opacity-50 animate-bounce"
             style={{ animationDuration: "4.5s", animationDelay: "1.5s" }}
           >
             ⌨️
           </div>
           <div
-            className="absolute top-[45%] left-[8%] text-5xl opacity-50 animate-bounce"
+            className="absolute top-[50%] left-[14%] text-5xl opacity-50 animate-bounce"
             style={{ animationDuration: "3s", animationDelay: "2s" }}
           >
             📕
           </div>
           <div
-            className="absolute top-[38%] right-[15%] text-5xl opacity-75 animate-bounce"
+            className="absolute top-[50%] right-[18%] text-5xl opacity-75 animate-bounce"
             style={{ animationDuration: "3.5s", animationDelay: "0.3s" }}
           >
             🧾
@@ -60,7 +60,7 @@ export default function Home() {
             📈
           </div>
           <div
-            className="absolute top-[28%] left-[5%] text-6xl opacity-50 animate-bounce"
+            className="absolute top-[33%] left-[5%] text-5xl opacity-50 animate-bounce"
             style={{ animationDuration: "3s", animationDelay: "2.2s" }}
           >
             📊
