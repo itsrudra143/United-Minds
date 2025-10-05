@@ -139,42 +139,61 @@ export default function Home() {
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {[
                 {
                   number: "500+",
                   label: "Active Communities",
                   icon: Users,
                   color: "from-blue-500 to-cyan-500",
+                  bgGlow: "bg-blue-500/10",
+                  shadowColor: "shadow-blue-500/20",
                 },
                 {
                   number: "50K+",
                   label: "Discussions",
                   icon: MessageCircle,
                   color: "from-purple-500 to-pink-500",
+                  bgGlow: "bg-purple-500/10",
+                  shadowColor: "shadow-purple-500/20",
                 },
                 {
                   number: "24/7",
                   label: "Active Members",
                   icon: TrendingUp,
                   color: "from-orange-500 to-red-500",
+                  bgGlow: "bg-orange-500/10",
+                  shadowColor: "shadow-orange-500/20",
                 },
               ].map((stat, idx) => (
                 <div
                   key={idx}
-                  className="bg-white/60 rounded-2xl p-6 border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group cursor-pointer"
+                  className="group relative bg-white/70 backdrop-blur-sm rounded-3xl p-8 border border-gray-200/60 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer overflow-hidden"
                 >
+                  {/* Animated background glow */}
                   <div
-                    className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center mb-3 mx-auto group-hover:scale-110 transition-transform shadow-lg`}
-                  >
-                    <stat.icon className="w-6 h-6 text-white" />
+                    className={`absolute inset-0 ${stat.bgGlow} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                  />
+
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <div
+                      className={`w-7 h-7 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 ${stat.shadowColor} shadow-2xl`}
+                    >
+                      <stat.icon className="w-4 h-4 text-white" />
+                    </div>
+                    <div className="text-2xl font-black text-gray-900 mb-2 group-hover:scale-105 transition-transform duration-300">
+                      {stat.number}
+                    </div>
+                    <div className="text-sm font-bold text-gray-600 uppercase tracking-wide">
+                      {stat.label}
+                    </div>
                   </div>
-                  <div className="text-4xl font-black text-gray-900 mb-1">
-                    {stat.number}
-                  </div>
-                  <div className="text-sm font-semibold text-gray-600">
-                    {stat.label}
-                  </div>
+
+                  {/* Decorative corner accent */}
+                  <div
+                    className={`absolute top-0 right-0 w-20 h-20 bg-gradient-to-br ${stat.color} opacity-10 rounded-bl-full transform translate-x-8 -translate-y-8 group-hover:scale-150 transition-transform duration-500`}
+                  />
                 </div>
               ))}
             </div>
