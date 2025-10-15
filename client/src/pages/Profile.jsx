@@ -176,7 +176,7 @@ export default function ProfileSection() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`py-4 text-sm font-medium transition-colors whitespace-nowrap border-b-2 ${
                   activeTab === tab.id
-                    ? "text-red-600 border-red-600"
+                    ? "text-blue-600 border-blue-600"
                     : "text-gray-600 hover:text-gray-900 border-transparent"
                 }`}
               >
@@ -253,7 +253,7 @@ export default function ProfileSection() {
                         onClick={() => handleVote(post.id, "down")}
                         className={`p-2 rounded-lg hover:bg-gray-50 transition-colors ${
                           postVotes[post.id] === "down"
-                            ? "text-red-600 bg-red-50"
+                            ? "text-blue-600 bg-blue-50"
                             : "text-gray-600"
                         }`}
                       >
