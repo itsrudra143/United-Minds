@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
 import { threadAPI, voteAPI, repostAPI, authAPI } from "../utils/api";
 import LoadingSpinner from "../components/LoadingSpinner";
 import ErrorAlert from "../components/ErrorAlert";
+=======
+import { threadAPI, voteAPI } from "../utils/api";
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
 
 const Feed = () => {
   const [posts, setPosts] = useState([]);
@@ -16,6 +20,7 @@ const Feed = () => {
   const fetchPosts = async () => {
     try {
       setLoading(true);
+<<<<<<< HEAD
 
       // Fetch current user to check what they've reposted
       let userId = null;
@@ -54,6 +59,10 @@ const Feed = () => {
       }
 
       setPosts(posts);
+=======
+      const response = await threadAPI.getAll();
+      setPosts(response.data.threads || response.data);
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
       setError(null);
     } catch (err) {
       console.error("Error fetching posts:", err);
@@ -72,7 +81,10 @@ const Feed = () => {
           upvotes: 24,
           downvotes: 2,
           comments: 8,
+<<<<<<< HEAD
           _count: { replies: 8, reposts: 3 },
+=======
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
         },
       ]);
     } finally {
@@ -95,6 +107,7 @@ const Feed = () => {
   // Action handlers with API calls
   const handleUpvote = async (postId) => {
     try {
+<<<<<<< HEAD
       const res = await voteAPI.upvoteThread(postId);
       setPosts((prev) =>
         prev.map((post) =>
@@ -106,6 +119,12 @@ const Feed = () => {
                 downvotes: res.data?.downvotes ?? post.downvotes,
               }
             : post
+=======
+      await voteAPI.upvote({ threadId: postId });
+      setPosts(
+        posts.map((post) =>
+          post.id === postId ? { ...post, upvotes: post.upvotes + 1 } : post
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
         )
       );
     } catch (err) {
@@ -115,6 +134,7 @@ const Feed = () => {
 
   const handleDownvote = async (postId) => {
     try {
+<<<<<<< HEAD
       const res = await voteAPI.downvoteThread(postId);
       setPosts((prev) =>
         prev.map((post) =>
@@ -126,6 +146,12 @@ const Feed = () => {
                 downvotes: res.data?.downvotes ?? post.downvotes,
               }
             : post
+=======
+      await voteAPI.downvote({ threadId: postId });
+      setPosts(
+        posts.map((post) =>
+          post.id === postId ? { ...post, downvotes: post.downvotes + 1 } : post
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
         )
       );
     } catch (err) {
@@ -134,6 +160,7 @@ const Feed = () => {
   };
 
   const handleComment = (postId) => {
+<<<<<<< HEAD
     window.location.href = `/thread/${postId}`;
   };
 
@@ -173,6 +200,14 @@ const Feed = () => {
         console.error("Error reposting:", err);
       }
     }
+=======
+    console.log("Comment on post:", postId);
+    // Navigate to thread detail page
+  };
+
+  const handleRepost = (postId) => {
+    console.log("Repost:", postId);
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
   };
 
   const handleCreateThread = () => {
@@ -194,7 +229,14 @@ const Feed = () => {
   if (loading) {
     return (
       <div className="w-full bg-gray-50 pt-24 min-h-screen flex items-center justify-center">
+<<<<<<< HEAD
         <LoadingSpinner message="Loading posts..." />
+=======
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading posts...</p>
+        </div>
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
       </div>
     );
   }
@@ -203,7 +245,15 @@ const Feed = () => {
     <div className="w-full bg-gray-50 pt-24">
       {/* Main Layout Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+<<<<<<< HEAD
         <ErrorAlert message={error} />
+=======
+        {error && (
+          <div className="mb-4 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            {error}
+          </div>
+        )}
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
 
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Main Center Panel - Posts Feed */}
@@ -217,11 +267,19 @@ const Feed = () => {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
+<<<<<<< HEAD
                         {post.author?.name?.charAt(0) || "U"}
                       </div>
                       <div>
                         <p className="font-semibold text-gray-900">
                           {post.author?.name || "Anonymous"}
+=======
+                        {post.author?.charAt(0) || "U"}
+                      </div>
+                      <div>
+                        <p className="font-semibold text-gray-900">
+                          {post.author || "Anonymous"}
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
                         </p>
                         <p className="text-sm text-gray-500">
                           {formatDate(post.createdAt)}
@@ -231,6 +289,7 @@ const Feed = () => {
                   </div>
 
                   {/* Post Caption */}
+<<<<<<< HEAD
                   <h3
                     className="text-xl font-bold text-gray-900 mb-3 hover:text-blue-600 cursor-pointer"
                     onClick={() =>
@@ -257,10 +316,28 @@ const Feed = () => {
                             {category}
                           </span>
                         ))}
+=======
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 hover:text-blue-600 cursor-pointer">
+                    {post.caption || post.title}
+                  </h3>
+
+                  {/* Categories */}
+                  {post.categories && post.categories.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {post.categories.map((category, index) => (
+                        <span
+                          key={index}
+                          className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200 cursor-pointer transition-colors"
+                        >
+                          {category}
+                        </span>
+                      ))}
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
                     </div>
                   )}
 
                   {/* Tags */}
+<<<<<<< HEAD
                   {((Array.isArray(post.threadTags) &&
                     post.threadTags.length > 0) ||
                     (Array.isArray(post.tags) && post.tags.length > 0)) && (
@@ -281,6 +358,18 @@ const Feed = () => {
                             #{tag}
                           </span>
                         ))}
+=======
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {post.tags.map((tag, index) => (
+                        <span
+                          key={index}
+                          className="px-2 py-1 bg-gray-100 text-gray-700 rounded-md text-xs font-medium hover:bg-gray-200 cursor-pointer transition-colors"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
                     </div>
                   )}
 
@@ -299,7 +388,11 @@ const Feed = () => {
                       <span className="text-lg">▲</span>
                       <span>Upvote</span>
                       <span className="bg-green-200 px-2 py-0.5 rounded-full text-xs">
+<<<<<<< HEAD
                         {post.upvotes ?? 0}
+=======
+                        {post.upvotes || 0}
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
                       </span>
                     </button>
 
@@ -309,7 +402,11 @@ const Feed = () => {
                       <span className="text-lg">▼</span>
                       <span>Downvote</span>
                       <span className="bg-red-200 px-2 py-0.5 rounded-full text-xs">
+<<<<<<< HEAD
                         {post.downvotes ?? 0}
+=======
+                        {post.downvotes || 0}
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
                       </span>
                     </button>
 
@@ -333,7 +430,11 @@ const Feed = () => {
                       <span>💬</span>
                       <span>Comment</span>
                       <span className="bg-blue-200 px-2 py-0.5 rounded-full text-xs">
+<<<<<<< HEAD
                         {post._count?.replies ?? post.comments ?? 0}
+=======
+                        {post.comments || 0}
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
                       </span>
                     </button>
 

@@ -17,6 +17,7 @@ function App() {
         <Header />
         <main className="flex-grow">
           <Routes>
+<<<<<<< HEAD
             <Route
               path="/"
               element={<Home />}
@@ -49,6 +50,12 @@ function App() {
               path="/create-thread"
               element={<CreateThread />}
             />
+=======
+            <Route path="/" element={<Home />} />
+            <Route path="/feed" element={<Feed />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:userId" element={<Profile />} />
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
           </Routes>
         </main>
         <Footer />

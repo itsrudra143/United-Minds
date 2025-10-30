@@ -2,7 +2,11 @@ import axios from "axios";
 
 // Create axios instance with default config
 const api = axios.create({
+<<<<<<< HEAD
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
+=======
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:4000/api",
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
   headers: {
     "Content-Type": "application/json",
   },
@@ -53,7 +57,12 @@ api.interceptors.response.use(
 // API endpoints
 export const authAPI = {
   login: (credentials) => api.post("/auth/login", credentials),
+<<<<<<< HEAD
   register: (userData) => api.post("/auth/register", userData),
+=======
+  signup: (userData) => api.post("/auth/signup", userData),
+  logout: () => api.post("/auth/logout"),
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
   getCurrentUser: () => api.get("/auth/me"),
 };
 
@@ -61,25 +70,45 @@ export const threadAPI = {
   getAll: (params) => api.get("/threads", { params }),
   getById: (id) => api.get(`/threads/${id}`),
   create: (data) => api.post("/threads", data),
+<<<<<<< HEAD
+=======
+  update: (id, data) => api.put(`/threads/${id}`, data),
+  delete: (id) => api.delete(`/threads/${id}`),
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
 };
 
 export const replyAPI = {
   getByThreadId: (threadId) => api.get(`/replies/thread/${threadId}`),
+<<<<<<< HEAD
   getById: (id) => api.get(`/replies/${id}`),
   create: (data) => api.post("/replies", data),
+=======
+  create: (data) => api.post("/replies", data),
+  update: (id, data) => api.put(`/replies/${id}`, data),
+  delete: (id) => api.delete(`/replies/${id}`),
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
 };
 
 export const categoryAPI = {
   getAll: () => api.get("/categories"),
+<<<<<<< HEAD
+=======
+  getById: (id) => api.get(`/categories/${id}`),
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
   create: (data) => api.post("/categories", data),
 };
 
 export const tagAPI = {
   getAll: () => api.get("/tags"),
+<<<<<<< HEAD
+=======
+  getById: (id) => api.get(`/tags/${id}`),
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
   create: (data) => api.post("/tags", data),
 };
 
 export const voteAPI = {
+<<<<<<< HEAD
   // Original methods (kept for backward compatibility)
   voteThread: (threadId, value) =>
     api.post(`/votes/thread/${threadId}`, { value }),
@@ -129,6 +158,11 @@ export const followAPI = {
 
   // Check if current user is following target user
   checkFollowing: (targetUserId) => api.get(`/follows/${targetUserId}/check`),
+=======
+  upvote: (data) => api.post("/votes/upvote", data),
+  downvote: (data) => api.post("/votes/downvote", data),
+  removeVote: (data) => api.delete("/votes", { data }),
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
 };
 
 // Health check

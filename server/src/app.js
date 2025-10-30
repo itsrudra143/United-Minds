@@ -1,13 +1,20 @@
+<<<<<<< HEAD
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const passport = require("passport");
+=======
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
 
 // Load environment variables
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+<<<<<<< HEAD
 
 // CORS Configuration
 const corsOptions = {
@@ -34,6 +41,30 @@ const tagRoutes = require("./modules/tag/tag.routes.js");
 const voteRoutes = require("./modules/vote/vote.routes.js");
 const repostRoutes = require("./modules/repost/repost.routes.js");
 const followRoutes = require("./modules/follow/follow.routes.js");
+=======
+
+// CORS Configuration
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  credentials: true,
+  optionsSuccessStatus: 200,
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+// Middleware
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Import routes
+import authRoutes from "./modules/auth/auth.routes.js";
+import threadRoutes from "./modules/thread/thread.routes.js";
+import replyRoutes from "./modules/reply/reply.routes.js";
+import categoryRoutes from "./modules/category/category.routes.js";
+import tagRoutes from "./modules/tag/tag.routes.js";
+import voteRoutes from "./modules/vote/vote.routes.js";
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
 
 // Health check route
 app.get("/api/health", (req, res) => {
@@ -51,11 +82,17 @@ app.use("/api/replies", replyRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/tags", tagRoutes);
 app.use("/api/votes", voteRoutes);
+<<<<<<< HEAD
 app.use("/api/reposts", repostRoutes);
 app.use("/api/follows", followRoutes);
 
 // 404 handler
 app.all("*", (req, res) => {
+=======
+
+// 404 handler
+app.use("*", (req, res) => {
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
   res.status(404).json({
     status: "error",
     message: "Route not found",
@@ -78,4 +115,8 @@ app.listen(PORT, () => {
   console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL}`);
 });
 
+<<<<<<< HEAD
 module.exports = app;
+=======
+export default app;
+>>>>>>> 6d03a901d7deac21dfd69f36202294bc6f999044
