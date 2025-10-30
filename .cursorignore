@@ -1,0 +1,5 @@
+!*
+!*.*
+assets/*
+client/public/*
+client/src/assets/*

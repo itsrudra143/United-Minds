@@ -88,12 +88,17 @@ exports.getThreadReplies = async (req, res) => {
       }),
     ]);
 
-    const withScore = {
-      ...reply,
-      score: reply.votes.reduce((sum, v) => sum + v.value, 0),
-    };
-
-    res.json(withScore);
+    const withScore = items.map((item) => {
+      const upvotes = item.votes.filter((v) => v.value === 1).length;
+      const downvotes = item.votes.filter((v) => v.value === -1).length;
+      const score = item.votes.reduce((sum, v) => sum + v.value, 0);
+      return {
+        ...item,
+        upvotes,
+        downvotes,
+        score,
+      };
+    });
 
     res.json({ page, limit, total, items: withScore });
   } catch (err) {
@@ -122,9 +127,15 @@ exports.getReplyById = async (req, res) => {
 
     if (!reply) return res.status(404).json({ error: "Reply not found" });
 
+    const upvotes = reply.votes.filter((v) => v.value === 1).length;
+    const downvotes = reply.votes.filter((v) => v.value === -1).length;
+    const score = reply.votes.reduce((sum, v) => sum + v.value, 0);
+
     const withScore = {
       ...reply,
-      score: reply.votes.reduce((sum, v) => sum + v.value, 0),
+      upvotes,
+      downvotes,
+      score,
     };
 
     res.json(withScore);

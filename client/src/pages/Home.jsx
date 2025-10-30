@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MessageCircle,
   Users,
@@ -8,8 +9,10 @@ import {
   Zap,
 } from "lucide-react";
 import heroImage from "../assets/image.png";
+// import "../index.css";
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30">
       {/* Hero Section with Floating Elements */}
@@ -19,50 +22,42 @@ export default function Home() {
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
           <div
             className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse"
-            style={{ animationDelay: "1s" }}
-          ></div>
+            style={{ animationDelay: "1s" }}></div>
 
           {/* Floating Emojis - Only in Hero */}
           <div
             className="absolute top-[20%] left-[19%] text-5xl opacity-50 animate-bounce"
-            style={{ animationDuration: "3s", animationDelay: "0s" }}
-          >
+            style={{ animationDuration: "3s", animationDelay: "0s" }}>
             📱
           </div>
           <div
             className="absolute top-[32%] right-[10%] text-5xl opacity-50 animate-bounce"
-            style={{ animationDuration: "4s", animationDelay: "0.5s" }}
-          >
+            style={{ animationDuration: "4s", animationDelay: "0.5s" }}>
             💻
           </div>
           <div
             className="absolute top-[7%] right-[50%] text-5xl opacity-50 animate-bounce"
-            style={{ animationDuration: "4.5s", animationDelay: "1.5s" }}
-          >
+            style={{ animationDuration: "4.5s", animationDelay: "1.5s" }}>
             ⌨️
           </div>
           <div
             className="absolute top-[50%] left-[14%] text-5xl opacity-50 animate-bounce"
-            style={{ animationDuration: "3s", animationDelay: "2s" }}
-          >
+            style={{ animationDuration: "3s", animationDelay: "2s" }}>
             📕
           </div>
           <div
             className="absolute top-[50%] right-[18%] text-5xl opacity-75 animate-bounce"
-            style={{ animationDuration: "3.5s", animationDelay: "0.3s" }}
-          >
+            style={{ animationDuration: "3.5s", animationDelay: "0.3s" }}>
             🧾
           </div>
           <div
             className="absolute top-[15%] right-[25%] text-5xl opacity-50 animate-bounce"
-            style={{ animationDuration: "4.5s", animationDelay: "1.8s" }}
-          >
+            style={{ animationDuration: "4.5s", animationDelay: "1.8s" }}>
             📈
           </div>
           <div
             className="absolute top-[33%] left-[5%] text-5xl opacity-50 animate-bounce"
-            style={{ animationDuration: "3s", animationDelay: "2.2s" }}
-          >
+            style={{ animationDuration: "3s", animationDelay: "2.2s" }}>
             📊
           </div>
         </div>
@@ -89,8 +84,7 @@ export default function Home() {
                   className="absolute -bottom-2 left-0 w-full"
                   height="12"
                   viewBox="0 0 300 12"
-                  fill="none"
-                >
+                  fill="none">
                   <path
                     d="M2 10C50 5 100 2 150 5C200 8 250 10 298 7"
                     stroke="url(#gradient)"
@@ -103,11 +97,19 @@ export default function Home() {
                       x1="0%"
                       y1="0%"
                       x2="100%"
-                      y2="0%"
-                    >
-                      <stop offset="0%" stopColor="#3B82F6" />
-                      <stop offset="50%" stopColor="#9333EA" />
-                      <stop offset="100%" stopColor="#EC4899" />
+                      y2="0%">
+                      <stop
+                        offset="0%"
+                        stopColor="#3B82F6"
+                      />
+                      <stop
+                        offset="50%"
+                        stopColor="#9333EA"
+                      />
+                      <stop
+                        offset="100%"
+                        stopColor="#EC4899"
+                      />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -123,7 +125,9 @@ export default function Home() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 mb-16 justify-center">
-              <button className="group bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 relative overflow-hidden">
+              <button
+                onClick={() => navigate("/register")}
+                className="group bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white px-10 py-5 rounded-2xl font-bold text-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3 relative overflow-hidden">
                 <span className="relative z-10 flex items-center gap-3">
                   <Zap className="w-5 h-5" />
                   Join for Free
@@ -132,7 +136,9 @@ export default function Home() {
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </button>
 
-              <button className="bg-white text-gray-900 px-10 py-5 rounded-2xl font-bold text-lg border-2 border-gray-300 hover:border-gray-900 transition-all duration-300 shadow-lg hover:shadow-2xl flex items-center justify-center gap-3 hover:scale-105 group">
+              <button
+                onClick={() => navigate("/feed")}
+                className="bg-white text-gray-900 px-10 py-5 rounded-2xl font-bold text-lg border-2 border-gray-300 hover:border-gray-900 transition-all duration-300 shadow-lg hover:shadow-2xl flex items-center justify-center gap-3 hover:scale-105 group">
                 <Users className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 Explore Communities
               </button>
@@ -168,8 +174,7 @@ export default function Home() {
               ].map((stat, idx) => (
                 <div
                   key={idx}
-                  className="group relative bg-white/70 backdrop-blur-sm rounded-3xl p-8 border border-gray-200/60 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer overflow-hidden"
-                >
+                  className="group relative bg-white/70 backdrop-blur-sm rounded-3xl p-8 border border-gray-200/60 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer overflow-hidden">
                   {/* Animated background glow */}
                   <div
                     className={`absolute inset-0 ${stat.bgGlow} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
@@ -178,8 +183,7 @@ export default function Home() {
                   {/* Content */}
                   <div className="relative z-10">
                     <div
-                      className={`w-7 h-7 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 ${stat.shadowColor} shadow-2xl`}
-                    >
+                      className={`w-7 h-7 bg-gradient-to-br ${stat.color} rounded-2xl flex items-center justify-center mb-4 mx-auto group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 ${stat.shadowColor} shadow-2xl`}>
                       <stat.icon className="w-4 h-4 text-white" />
                     </div>
                     <div className="text-2xl font-black text-gray-900 mb-2 group-hover:scale-105 transition-transform duration-300">
@@ -209,8 +213,7 @@ export default function Home() {
             <div className="absolute -top-20 -left-20 w-40 h-40 bg-gradient-to-br from-blue-500/30 to-cyan-500/30 rounded-full blur-3xl animate-pulse"></div>
             <div
               className="absolute -bottom-20 -right-20 w-48 h-48 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-full blur-3xl animate-pulse"
-              style={{ animationDelay: "1s" }}
-            ></div>
+              style={{ animationDelay: "1s" }}></div>
 
             {/* Main Image Container */}
             <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-white/50 bg-gradient-to-br from-white via-gray-50 to-blue-50 p-3">

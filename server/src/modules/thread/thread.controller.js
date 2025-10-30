@@ -49,6 +49,8 @@ exports.getThreads = async (req, res) => {
           threadTags: { include: { tag: true } },
           category: true,
           votes: true,
+          author: { select: { id: true, name: true, avatarUrl: true } },
+          _count: { select: { replies: true, reposts: true } },
         },
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
@@ -61,6 +63,8 @@ exports.getThreads = async (req, res) => {
           threadTags: { include: { tag: true } },
           category: true,
           votes: true,
+          author: { select: { id: true, name: true, avatarUrl: true } },
+          _count: { select: { replies: true, reposts: true } },
         },
         orderBy: { createdAt: "desc" },
         skip: (page - 1) * limit,
@@ -68,10 +72,17 @@ exports.getThreads = async (req, res) => {
       });
     }
 
-    const withScore = threads.map((t) => ({
-      ...t,
-      score: t.votes.reduce((sum, v) => sum + v.value, 0),
-    }));
+    const withScore = threads.map((t) => {
+      const upvotes = t.votes.filter((v) => v.value === 1).length;
+      const downvotes = t.votes.filter((v) => v.value === -1).length;
+      const score = t.votes.reduce((sum, v) => sum + v.value, 0);
+      return {
+        ...t,
+        upvotes,
+        downvotes,
+        score,
+      };
+    });
 
     res.json(withScore);
   } catch (err) {
@@ -88,14 +99,22 @@ exports.getThreadById = async (req, res) => {
         threadTags: { include: { tag: true } },
         category: true,
         votes: true,
+        author: { select: { id: true, name: true, avatarUrl: true } },
+        _count: { select: { replies: true, reposts: true } },
       },
     });
 
     if (!thread) return res.status(404).json({ error: "Thread not found" });
 
+    const upvotes = thread.votes.filter((v) => v.value === 1).length;
+    const downvotes = thread.votes.filter((v) => v.value === -1).length;
+    const score = thread.votes.reduce((sum, v) => sum + v.value, 0);
+
     const withScore = {
       ...thread,
-      score: thread.votes.reduce((sum, v) => sum + v.value, 0),
+      upvotes,
+      downvotes,
+      score,
     };
 
     res.json(withScore);
